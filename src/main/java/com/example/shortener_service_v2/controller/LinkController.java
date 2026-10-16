@@ -30,15 +30,18 @@ public class LinkController {
             String originalUrl
     ) {
     }
-    @GetMapping("/{shortCode}")
-    public ResponseEntity<Void> redirect(@PathVariable String shortCode) {
-        Link link = linkService.getByShortCode(shortCode);
 
-        return ResponseEntity
-                .status(HttpStatus.FOUND)
+    @GetMapping("/{shortCode}")
+    public ResponseEntity<Void> redirectToOriginal(
+            @PathVariable String shortCode) {
+
+        Link link = linkService.incrementClicks(shortCode);
+
+        return ResponseEntity.status(HttpStatus.FOUND)
                 .header("Location", link.getOriginalUrl())
                 .build();
     }
+
     @DeleteMapping("/{shortCode}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteLink(@PathVariable String shortCode) {

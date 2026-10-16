@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Shortener — короткие ссылки</title>
+    <style>
+        :root{color-scheme:dark;--blue:#38a8ff;--purple:#7041ff;--green:#29e5ae;--muted:#9aa9bd}
+        *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,Segoe UI,sans-serif;color:#f5f7fc;background:radial-gradient(ellipse at 18% 28%,#28175c88,transparent 35%),radial-gradient(ellipse at 82% 15%,#123c7080,transparent 35%),linear-gradient(145deg,#090d16,#111a28 60%,#090d15)}
+        header{height:76px;border-bottom:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;padding:0 max(20px,calc((100% - 1160px)/2))}.brand{font-size:25px;font-weight:800}.brand b{color:var(--blue)}.status{border:1px solid #2c3b51;border-radius:30px;padding:10px 15px;font-size:13px;color:#dce7f5}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);margin-right:8px;box-shadow:0 0 12px #29e5ae}
+        main{max-width:1160px;margin:auto;padding:36px 22px 50px}.hero{text-align:center;margin-bottom:25px}.hero h1{font-size:clamp(36px,5vw,58px);letter-spacing:-2px;margin:0 0 8px}.gradient{background:linear-gradient(90deg,#39aaff,#7546ff);color:transparent;background-clip:text}.subtitle{font-size:21px;margin:0 0 8px}.intro{color:var(--muted);margin:0}
+        .panel{padding:28px;border:1px solid #34465f;border-radius:22px;background:linear-gradient(135deg,#19263bee,#111a27f5);box-shadow:0 20px 70px #0002}.label{font-weight:700;margin-bottom:17px}.label span{color:var(--blue);font-size:22px;margin-right:9px}form{display:flex;gap:14px}.input{position:relative;flex:1}.input span{position:absolute;left:17px;top:50%;transform:translateY(-50%);font-size:22px;color:#8192a9}input{width:100%;height:58px;background:#202b3c;border:1px solid #45566e;border-radius:12px;padding:0 15px 0 50px;color:white;font:inherit;outline:none}input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #38a8ff20}input::placeholder{color:#8796ab}button{font:inherit;font-weight:650;border:1px solid transparent;border-radius:11px;padding:12px 17px;cursor:pointer}button:hover{filter:brightness(1.13)}button:disabled{opacity:.6;cursor:wait}.primary{background:linear-gradient(110deg,#269dff,#6538ff);color:white;min-width:180px}.secondary{background:#1a2638;color:#7dc5ff;border-color:#2a3b53}.success{background:#0e3b35;color:#52f0c1;border-color:#0fae83}.message{min-height:20px;margin:10px 0 0;color:#ffb9c0;font-size:14px}.result{display:none;margin-top:20px;padding:17px;border:1px solid #087d68;border-radius:15px;background:#07352f66}.result.show{display:block}.result-title{color:var(--green);font-weight:750;margin-bottom:12px}.result-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.short{flex:1;min-width:210px;overflow-wrap:anywhere;color:#65bcff;background:#0b1521;border:1px solid #26384c;padding:13px;border-radius:9px;text-decoration:none}.actions{display:flex;gap:8px;flex-wrap:wrap}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:28px 4px}.feature{display:flex;gap:14px;align-items:center}.ico{width:55px;height:55px;border-radius:15px;display:grid;place-items:center;background:#12304a;color:#38a8ff;font-size:25px}.feature strong{display:block;margin-bottom:5px}.feature small{color:var(--muted);font-size:13px}.history{border:1px solid #253246;border-radius:20px;background:#111824cc;overflow:hidden}.history-head{display:flex;justify-content:space-between;align-items:center;padding:19px 22px;border-bottom:1px solid #253246}.history h2{font-size:18px;margin:0}.history-list{padding:0 20px}.empty{text-align:center;color:var(--muted);padding:28px}.item{display:grid;grid-template-columns:minmax(160px,1.3fr) minmax(180px,1fr) 80px auto;gap:14px;align-items:center;padding:15px 4px;border-bottom:1px solid #253246}.item:last-child{border:0}.original{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.created{font-size:12px;color:#8291a7;margin-top:5px}.item-short{color:#65bcff;overflow-wrap:anywhere;text-decoration:none}.clicks{font-size:14px}.clicks small{display:block;color:#8291a7;margin-top:3px}.item-actions{display:flex;gap:6px}.icon-btn{padding:8px 10px;background:#1a2636;color:#c7d4e5;border-color:#2a394d}.footer{text-align:center;color:#68788e;font-size:12px;margin-top:22px}
+        @media(max-width:760px){header{padding:0 16px}.status{font-size:11px;padding:8px}main{padding:27px 14px}.panel{padding:20px 16px}form{flex-direction:column}.primary{width:100%}.features{grid-template-columns:1fr;gap:15px}.item{grid-template-columns:1fr auto;gap:9px}.item-short{grid-column:1}.clicks{grid-column:2;grid-row:1}.item-actions{grid-column:2;grid-row:2}.history-list{padding:0 12px}.hero h1{letter-spacing:-1px}}
+    </style>
+</head>
+<body>
+<header><div class="brand"><b>↗</b> Shortener</div><div class="status"><i class="dot"></i>Локальный сервис</div></header>
+<main>
+    <section class="hero"><h1>Сокращай <span class="gradient">ссылки</span></h1><p class="subtitle">Быстро. Удобно. Бесплатно.</p><p class="intro">Делай длинные ссылки короткими и отслеживай статистику переходов.</p></section>
+    <section class="panel">
+        <div class="label"><span>↗</span>Введи длинную ссылку</div>
+        <form id="form"><div class="input"><span>↗</span><input id="url" type="url" placeholder="https://example.com/very/long/url" required></div><button class="primary" id="submit">✦ Сократить</button></form>
+        <p class="message" id="message" role="status"></p>
+        <div class="result" id="result"><div class="result-title">✓ Ссылка сокращена!</div><div class="result-row"><a class="short" id="short" href="#" target="_blank" rel="noopener"></a><div class="actions"><button class="secondary" id="copy">▢ Копировать</button><button class="success" id="open">↗ Перейти</button><button class="secondary" id="stats">▥ Статистика</button></div></div><p class="message" id="statsMessage"></p></div>
+    </section>
+    <section class="features"><div class="feature"><div class="ico">ϟ</div><div><strong>Быстро</strong><small>Сокращай ссылки в один клик</small></div></div><div class="feature"><div class="ico">▥</div><div><strong>Статистика</strong><small>Следи за количеством переходов</small></div></div><div class="feature"><div class="ico">◇</div><div><strong>Надёжно</strong><small>Ссылки сохраняются в базе данных</small></div></div></section>
+    <section class="history"><div class="history-head"><h2>◷ &nbsp;Мои последние ссылки</h2><button class="secondary" id="refresh">↻ Обновить</button></div><div class="history-list" id="list"><div class="empty">Здесь появятся ссылки, созданные в этом браузере.</div></div></section>
+    <div class="footer">Shortener Service V2 · Учебный проект</div>
+</main>
+<script>
+    const API="http://localhost:8080/api/links",KEY="shortener_recent_links";
+    const $=id=>document.getElementById(id);let current=null;
+    const saved=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch{return[]}};
+    const save=items=>localStorage.setItem(KEY,JSON.stringify(items.slice(0,10)));
+    const shortUrl=code=>`${API}/${encodeURIComponent(code)}`;
+    function msg(text,error=true){$("message").textContent=text;$("message").style.color=error?"#ffb9c0":"#52f0c1"}
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+    function show(link){current=link;$("short").href=shortUrl(link.shortCode);$("short").textContent=shortUrl(link.shortCode);$("result").classList.add("show");$("statsMessage").textContent=""}
+    async function getStats(code,target){target.textContent="Загружаем статистику…";try{
+        // GET: запрашиваем статистику короткой ссылки и читаем JSON из ответа.
+        const r=await fetch(`${API}/${encodeURIComponent(code)}/stats`);if(!r.ok)throw Error(`HTTP ${r.status}`);
+        const data=await r.json();target.textContent=`Переходов: ${Number(data.clicks??0)} · Код: ${data.shortCode}`;
+    }catch(e){target.textContent=`Не удалось получить статистику: ${e.message}`}}
+    async function historyStats(code){try{const r=await fetch(`${API}/${encodeURIComponent(code)}/stats`);if(!r.ok)return;const d=await r.json();const n=document.getElementById("clicks-"+code);if(n)n.innerHTML=`${Number(d.clicks??0)}<small>переходов</small>`}catch{}}
+    function render(){const items=saved();if(!items.length){$("list").innerHTML='<div class="empty">Здесь появятся ссылки, созданные в этом браузере.</div>';return}
+        $("list").innerHTML=items.map(x=>`<div class="item"><div><div class="original" title="${escapeHtml(x.originalUrl)}">${escapeHtml(x.originalUrl)}</div><div class="created">${escapeHtml(x.createdAt||"Недавно")}</div></div><a class="item-short" href="${escapeHtml(shortUrl(x.shortCode))}" target="_blank" rel="noopener">${escapeHtml(shortUrl(x.shortCode))}</a><div class="clicks" id="clicks-${escapeHtml(x.shortCode)}">—<small>переходов</small></div><div class="item-actions"><button class="icon-btn" data-act="open" data-code="${escapeHtml(x.shortCode)}" title="Открыть">↗</button><button class="icon-btn" data-act="stats" data-code="${escapeHtml(x.shortCode)}" title="Статистика">▥</button><button class="icon-btn" data-act="delete" data-code="${escapeHtml(x.shortCode)}" title="Удалить">×</button></div></div>`).join("");items.forEach(x=>historyStats(x.shortCode))}
+    $("form").addEventListener("submit",async e=>{e.preventDefault();const originalUrl=$("url").value.trim();$("submit").disabled=true;$("submit").textContent="Создаём…";msg("");
+        try{
+            // POST: отправляем исходную ссылку в JSON-теле и читаем созданную запись из ответа.
+            const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({originalUrl})});
+            if(!r.ok)throw Error((await r.text())||`HTTP ${r.status}`);const d=await r.json();if(!d.shortCode)throw Error("В ответе API отсутствует поле shortCode");
+            const link={shortCode:d.shortCode,originalUrl:d.originalUrl||originalUrl,createdAt:new Date().toLocaleString("ru-RU")};save([link,...saved().filter(x=>x.shortCode!==link.shortCode)]);show(link);render();msg("Готово — ссылка создана.",false);
+        }catch(e){msg(`Не удалось создать ссылку. Проверь, что Spring Boot запущен и CORS настроен. ${e.message}`)}
+        finally{$("submit").disabled=false;$("submit").textContent="✦ Сократить"}});
+    $("copy").onclick=async()=>{if(!current)return;try{await navigator.clipboard.writeText(shortUrl(current.shortCode));$("statsMessage").textContent="Ссылка скопирована."}catch{$("statsMessage").textContent="Скопируй ссылку вручную."}};
+    $("open").onclick=()=>{if(current)location.href=shortUrl(current.shortCode)};
+    $("stats").onclick=()=>{if(current)getStats(current.shortCode,$("statsMessage"))};
+    $("refresh").onclick=render;
+    $("list").addEventListener("click",async e=>{const b=e.target.closest("button[data-act]");if(!b)return;const {act,code}=b.dataset,items=saved(),item=items.find(x=>x.shortCode===code);if(!item)return;
+        if(act==="open")location.href=shortUrl(code);if(act==="stats")getStats(code,document.getElementById("clicks-"+code));
+        if(act==="delete"&&confirm("Удалить ссылку с сервера?"))try{
+            const r=await fetch(`${API}/${encodeURIComponent(code)}`,{method:"DELETE"});if(!r.ok&&r.status!==204)throw Error(`HTTP ${r.status}`);save(items.filter(x=>x.shortCode!==code));render()
+        }catch(err){alert(`Не удалось удалить ссылку: ${err.message}`)}});
+    render();
+</script>
+</body></html>
