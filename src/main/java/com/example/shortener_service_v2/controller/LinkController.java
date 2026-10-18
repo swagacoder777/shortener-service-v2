@@ -8,20 +8,39 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+import com.example.shortener_service_v2.service.RateLimitService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.ResponseEntity;
 @RestController
 @RequestMapping("/api/links")
 public class LinkController {
 
     private final LinkService linkService;
 
-    public LinkController(LinkService linkService) {
+    private final RateLimitService rateLimitService;
+
+    public LinkController(
+            LinkService linkService,
+            RateLimitService rateLimitService
+    ) {
         this.linkService = linkService;
+        this.rateLimitService = rateLimitService;
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Link createLink(@Valid @RequestBody CreateLinkRequest request) {
-        return linkService.createLink(request.originalUrl());
+    public ResponseEntity<Link> createLink(
+            @Valid @RequestBody CreateLinkRequest request,
+            HttpServletRequest httpRequest
+    ) {
+        String ip = httpRequest.getRemoteAddr();
+
+        if (rateLimitService.isRateLimited(ip)) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
+
+        Link link = linkService.createLink(request.originalUrl());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(link);
     }
 
     public record CreateLinkRequest(
