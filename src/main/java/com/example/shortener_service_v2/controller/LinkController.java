@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.UUID;
 import com.example.shortener_service_v2.client.AnalyticsClient;
 import com.example.shortener_service_v2.dto.ClickStatsResponse;
+import org.slf4j.MDC;
 @RestController
 @RequestMapping("/api/links")
 public class LinkController {
@@ -62,6 +63,7 @@ public class LinkController {
     ) {
     }
 
+
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirectToOriginal(
             @PathVariable String shortCode,
@@ -70,11 +72,7 @@ public class LinkController {
         Link link = linkService.incrementClicks(shortCode);
 
         String userAgent = httpRequest.getHeader("User-Agent");
-        String correlationId = httpRequest.getHeader("X-Correlation-ID");
-
-        if (correlationId == null || correlationId.isBlank()) {
-            correlationId = UUID.randomUUID().toString();
-        }
+        String correlationId = MDC.get("correlationId");
 
         LinkClickedEvent event = new LinkClickedEvent(
                 shortCode,
@@ -90,6 +88,7 @@ public class LinkController {
                 .header("Location", link.getOriginalUrl())
                 .build();
     }
+
 
     @DeleteMapping("/{shortCode}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
