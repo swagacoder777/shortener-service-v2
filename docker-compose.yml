@@ -78,7 +78,26 @@ services:
       timeout: 10s
       retries: 10
       start_period: 20s
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    depends_on:
+      - shortener-service
 
+  grafana:
+      image: grafana/grafana:latest
+      ports:
+        - "3000:3000"
+      depends_on:
+        - prometheus
+      volumes:
+        - grafana_data:/var/lib/grafana
 
 volumes:
   postgres_data:
+  grafana_data:
