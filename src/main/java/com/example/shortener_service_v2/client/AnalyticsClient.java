@@ -12,7 +12,7 @@ public class AnalyticsClient {
 
     public AnalyticsClient(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder
-                .baseUrl("http://localhost:8082")
+                .baseUrl("http://analytics-service:8082")
                 .build();
     }
 
